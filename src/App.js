@@ -12,14 +12,14 @@ const info = [
     title: 'Inception',
       description: '2010 - Sci-fi/Action',
       img: 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg',
-      rating: 8.8,
+      rating: 7.5,
       trailer: 'https://www.youtube.com/embed/8hP9D6kZseM',
   },
   { 
     title: 'Interstellar',
       description: '2013 - Sci-fi/Adventure',
       img: 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
-      rating: 8.7,
+      rating: 8,
       trailer: 'https://www.youtube.com/embed/zSWdZVtXT7E?si=qiXrSBS8l1rWYzQr',
   },
   { 
@@ -33,7 +33,7 @@ const info = [
     title: 'The Godfather',
       description: '1972 - Crime/Mystery',
       img: 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg',
-      rating: 9.2,
+      rating: 9,
       trailer: 'https://www.youtube.com/embed/UaVTIH8mujA?si=2kIXXUT5eMvo8eVR',
   },
 ];
@@ -53,14 +53,15 @@ function App() {
   function filter(key, rate) {
     setKeyword(key);
     setRate(rate);
+    
     setFilteredList(
-      list.filter(
-        (element) =>
-          element.title.toLowerCase().includes(key.toLowerCase()) &&
-          element.rating >= rate
+      list.filter((element) =>
+        element.title.toLowerCase().includes(key.toLowerCase()) &&
+        (!rate  || element.rating === rate)
       )
     );
   }
+  
 
   useEffect(()=>{ filter(keyword,rate); }, [list]);
 

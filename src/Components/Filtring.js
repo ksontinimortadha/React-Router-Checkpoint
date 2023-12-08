@@ -1,16 +1,14 @@
 import ReactStars from "react-rating-stars-component";
 import {useRef,useState} from "react";
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
+import {Container,Navbar,Form,Nav,Button} from 'react-bootstrap';
 
 export default function Filtring({filter}) {
     let searchRef = useRef();
     const [rate, setRate] = useState(0);
     
     const ratingChanged = (newRating) => {
-         filter(searchRef.current.value,newRating);
-        setRate(newRating)
+      filter(searchRef.current.value, newRating);
+      setRate(newRating);
     };
 
 
@@ -19,6 +17,11 @@ export default function Filtring({filter}) {
         filter(searchRef.current.value,rate);
     }
 
+    const resetFilters = () => {
+      searchRef.current.value = '';
+      filter('', 0);
+      setRate(0);
+    };
 
     return (
         <>
@@ -34,6 +37,16 @@ export default function Filtring({filter}) {
             />{' '}
             <h2 style={{ marginTop:'5px'}}>My Movie app</h2>
           </Navbar.Brand>
+            <Nav.Link style={{marginLeft:'480px'}}>
+            <ReactStars
+              count={10}
+              onChange={ratingChanged}
+              size={25}
+              isHalf={true}
+              activeColor="#ffd700"
+              value={rate}
+            />
+            </Nav.Link>
           <Form className="d-flex" onChange={submitted} onSubmit={submitted} style={{maxheight:'25px'}}>
             <Form.Control ref={searchRef}
               type="text"
@@ -41,11 +54,10 @@ export default function Filtring({filter}) {
               className="me-2"
               aria-label="Search"
             />
+            <Button variant="secondary" onClick={resetFilters}>
+              Reset
+            </Button>
             
-            <ReactStars count={10} style={{maxWidth:'10px'}} 
-                onChange={ratingChanged}
-                isHalf={true}
-              activeColor="#ffd700"/>
           </Form>
         </Container>
       </Navbar>
